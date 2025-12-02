@@ -1,0 +1,276 @@
+package com.api.common.core.domain;
+
+import com.api.common.constant.Constants;
+import com.api.common.utils.StringUtils;
+import org.springframework.util.AntPathMatcher;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * 操作消息提醒
+ * 
+ * @author api
+ */
+public class AjaxResult extends HashMap<String, Object>
+{
+    private static final long serialVersionUID = 1L;
+
+    /** 状态码 */
+    public static final String CODE_TAG = "code";
+
+    /** 返回内容 */
+    public static final String MSG_TAG = "msg";
+
+    /** 数据对象 */
+    public static final String DATA_TAG = "data";
+
+    /**
+     * 初始化一个新创建的 AjaxResult 对象，使其表示一个空消息。
+     */
+    public AjaxResult()
+    {
+    }
+
+    /**
+     * 初始化一个新创建的 AjaxResult 对象
+     *
+     * @param code 状态码
+     * @param msg 返回内容
+     */
+    public AjaxResult(int code, String msg)
+    {
+        super.put(CODE_TAG, code);
+        super.put(MSG_TAG, msg);
+    }
+
+    /**
+     * 初始化一个新创建的 AjaxResult 对象
+     *
+     * @param code 状态码
+     * @param msg 返回内容
+     * @param data 数据对象
+     */
+    public AjaxResult(int code, String msg, Object data)
+    {
+        super.put(CODE_TAG, code);
+        super.put(MSG_TAG, msg);
+        if (StringUtils.isNotNull(data))
+        {
+            super.put(DATA_TAG, data);
+        }
+    }
+
+    /**
+     * 返回成功消息
+     *
+     * @return 成功消息
+     */
+    public static AjaxResult success()
+    {
+        return AjaxResult.success("操作成功");
+    }
+
+    /**
+     * 返回成功数据
+     *
+     * @return 成功消息
+     */
+    public static AjaxResult success(Object data)
+    {
+        return AjaxResult.success("操作成功", data);
+    }
+
+    /**
+     * 返回成功消息
+     *
+     * @param msg 返回内容
+     * @return 成功消息
+     */
+    public static AjaxResult success(String msg)
+    {
+        return AjaxResult.success(msg, null);
+    }
+
+    /**
+     * 返回成功消息
+     *
+     * @param msg 返回内容
+     * @param data 数据对象
+     * @return 成功消息
+     */
+    public static AjaxResult success(String msg, Object data)
+    {
+        return new AjaxResult(200, msg, data);
+    }
+
+    /**
+     * 返回警告消息
+     *
+     * @param msg 返回内容
+     * @return 警告消息
+     */
+    public static AjaxResult warn(String msg)
+    {
+        return AjaxResult.warn(msg, null);
+    }
+
+    /**
+     * 返回警告消息
+     *
+     * @param msg 返回内容
+     * @param data 数据对象
+     * @return 警告消息
+     */
+    public static AjaxResult warn(String msg, Object data)
+    {
+        return new AjaxResult(301, msg, data);
+    }
+
+    /**
+     * 返回错误消息
+     *
+     * @return 错误消息
+     */
+    public static AjaxResult error()
+    {
+        return AjaxResult.error("操作失败");
+    }
+
+    /**
+     * 返回错误消息
+     *
+     * @param msg 返回内容
+     * @return 错误消息
+     */
+    public static AjaxResult error(String msg)
+    {
+        return AjaxResult.error(msg, null);
+    }
+
+    /**
+     * 返回错误消息
+     *
+     * @param msg 返回内容
+     * @param data 数据对象
+     * @return 错误消息
+     */
+    public static AjaxResult error(String msg, Object data)
+    {
+        return new AjaxResult(500, msg, data);
+    }
+
+    /**
+     * 返回错误消息
+     *
+     * @param code 状态码
+     * @param msg 返回内容
+     * @return 错误消息
+     */
+    public static AjaxResult error(int code, String msg)
+    {
+        return new AjaxResult(code, msg, null);
+    }
+
+    /**
+     * 是否为ajax请求
+     * 
+     * @param request
+     * @return
+     */
+    public static boolean isAjaxRequest(javax.servlet.http.HttpServletRequest request)
+    {
+        String accept = request.getHeader("accept");
+        if (accept != null && accept.contains("application/json"))
+        {
+            return true;
+        }
+
+        String xRequestedWith = request.getHeader("X-Requested-With");
+        if (xRequestedWith != null && xRequestedWith.contains("XMLHttpRequest"))
+        {
+            return true;
+        }
+
+        String uri = request.getRequestURI();
+        if (StringUtils.inStringIgnoreCase(uri, ".json", ".xml"))
+        {
+            return true;
+        }
+
+        String ajax = request.getParameter("__ajax");
+        return StringUtils.inStringIgnoreCase(ajax, "json", "xml");
+    }
+
+    /**
+     * 响应返回结果
+     * 
+     * @param rows 影响行数
+     * @return 操作结果
+     */
+    protected AjaxResult toAjax(int rows)
+    {
+        return rows > 0 ? AjaxResult.success() : AjaxResult.error();
+    }
+
+    /**
+     * 响应返回结果
+     * 
+     * @param result 结果
+     * @return 操作结果
+     */
+    protected AjaxResult toAjax(boolean result)
+    {
+        return result ? success() : error();
+    }
+
+    /**
+     * 方便链式调用
+     *
+     * @param key
+     * @param value
+     * @return
+     */
+    @Override
+    public AjaxResult put(String key, Object value)
+    {
+        super.put(key, value);
+        return this;
+    }
+
+    /**
+     * 判断URL是否匹配规则
+     * 
+     * @param pattern 匹配规则
+     * @param url 需要匹配的url
+     * @return
+     */
+    public static boolean matches(String pattern, String url)
+    {
+        AntPathMatcher matcher = new AntPathMatcher();
+        return matcher.match(pattern, url);
+    }
+
+    /**
+     * 判断URL是否匹配任一规则
+     * 
+     * @param patterns 匹配规则列表
+     * @param url 需要匹配的url
+     * @return
+     */
+    public static boolean matches(String[] patterns, String url)
+    {
+        if (StringUtils.isEmpty(patterns))
+        {
+            return false;
+        }
+        for (String pattern : patterns)
+        {
+            if (matches(pattern, url))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+}
