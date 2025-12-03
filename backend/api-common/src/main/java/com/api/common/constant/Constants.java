@@ -2,11 +2,10 @@ package com.api.common.constant;
 
 /**
  * 通用常量信息
- * 
- * @author api
+ *
+ * @author API
  */
-public class Constants
-{
+public class Constants {
     /**
      * UTF-8 字符集
      */
@@ -88,9 +87,9 @@ public class Constants
     public static final String USERNAME = "username";
 
     /**
-     * 用户KEY
+     * 用户IP
      */
-    public static final String USER_KEY = "user_key";
+    public static final String USER_IP = "user_ip";
 
     /**
      * 登录时间
@@ -98,32 +97,12 @@ public class Constants
     public static final String LOGIN_TIME = "login_time";
 
     /**
-     * 过期时间
-     */
-    public static final String EXPIRE_TIME = "expire_time";
-
-    /**
-     * 权限
-     */
-    public static final String PERMISSIONS = "permissions";
-
-    /**
-     * 角色权限
-     */
-    public static final String ROLE_PERMISSIONS = "role_permissions";
-
-    /**
-     * 数据权限
-     */
-    public static final String DATA_SCOPE = "data_scope";
-
-    /**
      * 当前页码
      */
     public static final String PAGE_NUM = "pageNum";
 
     /**
-     * 每页显示条数
+     * 每页显示记录数
      */
     public static final String PAGE_SIZE = "pageSize";
 
@@ -138,42 +117,122 @@ public class Constants
     public static final String IS_ASC = "isAsc";
 
     /**
-     * 参数管理 cache key
+     * 帐号状态
      */
-    public static final String SYS_CONFIG_KEY = "sys_config:";
+    public static final String ACCOUNT_STATUS = "account_status";
 
     /**
-     * 字典管理 cache key
+     * 帐号正常
      */
-    public static final String SYS_DICT_KEY = "sys_dict:";
+    public static final String ACCOUNT_NORMAL = "0";
 
     /**
-     * 防重提交 redis key
+     * 帐号禁用
      */
-    public static final String REPEAT_SUBMIT_KEY = "repeat_submit:";
+    public static final String ACCOUNT_DISABLE = "1";
 
     /**
-     * 限流 redis key
+     * 帐号删除
      */
-    public static final String RATE_LIMIT_KEY = "rate_limit:";
+    public static final String ACCOUNT_DELETE = "2";
 
     /**
-     * 登录账户密码错误次数 redis key
+     * 当前记录起始索引
      */
-    public static final String PWD_ERR_CNT_KEY = "pwd_err_cnt:";
+    public static final String PAGE = "page";
 
     /**
-     * 资源映射路径 前缀
+     * 每页显示记录数
      */
-    public static final String RESOURCE_PREFIX = "/profile";
+    public static final String LIMIT = "limit";
 
     /**
-     * 默认为匿名角色
+     * 排序字段
      */
-    public static final String DEFAULT_ROLE_NAME = "anonymous";
+    public static final String SOTR_FIELD = "sortField";
 
     /**
-     * 默认为匿名权限
+     * 排序方式
      */
-    public static final String DEFAULT_PERM_NAME = "*:*:*";
+    public static final String SORT_ORDER = "sortOrder";
+
+    /**
+     * 参数管理
+     */
+    public static final String PARAM_CONFIG = "sys_config";
+
+    /**
+     * 字典管理
+     */
+    public static final String SYS_DICT = "sys_dict";
+
+    /**
+     * 菜单管理
+     */
+    public static final String SYS_MENU = "sys_menu";
+
+    /**
+     * 定时任务
+     */
+    public static final String SYS_JOB = "sys_job";
+
+    /**
+     * 部门管理
+     */
+    public static final String SYS_DEPT = "sys_dept";
+
+    /**
+     * 通知公告
+     */
+    public static final String SYS_NOTICE = "sys_notice";
+
+    /**
+     * 在线用户
+     */
+    public static final String SYS_ONLINE = "sys_online";
+
+    /**
+     * 操作日志
+     */
+    public static final String SYS_OPERLOG = "sys_operlog";
+
+    /**
+     * 登录日志
+     */
+    public static final String SYS_LOGININFOR = "sys_logininfor";
+
+    /**
+     * 定时任务日志
+     */
+    public static final String SYS_JOB_LOG = "sys_job_log";
+
+    /**
+     * 服务监控
+     */
+    public static final String SERVER_MONITOR = "server_monitor";
+
+    /**
+     * 缓存监控
+     */
+    public static final String CACHE_MONITOR = "cache_monitor";
+
+    /**
+     * 在线构建器
+     */
+    public static final String SYS_TOOL_BUILD = "sys_tool_build";
+
+    /**
+     * 代码生成
+     */
+    public static final String SYS_TOOL_GEN = "sys_tool_gen";
+
+    /**
+     * 系统接口
+     */
+    public static final String SYS_TOOL_SWAGGER = "sys_tool_swagger";
+
+    /**
+     * 数据源监控
+     */
+    public static final String DRUID_MONITOR = "druid_monitor";
 }

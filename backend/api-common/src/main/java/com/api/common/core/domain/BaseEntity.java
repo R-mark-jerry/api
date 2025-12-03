@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -15,12 +14,10 @@ import java.util.Map;
 
 /**
  * Entity基类
- * 
- * @author api
+ *
+ * @author API
  */
-@Data
-public class BaseEntity implements Serializable
-{
+public class BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /** ID */
@@ -33,7 +30,7 @@ public class BaseEntity implements Serializable
 
     /** 创建者 */
     @TableField(fill = FieldFill.INSERT)
-    private Long createBy;
+    private String createBy;
 
     /** 创建时间 */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -42,7 +39,7 @@ public class BaseEntity implements Serializable
 
     /** 更新者 */
     @TableField(fill = FieldFill.INSERT_UPDATE)
-    private Long updateBy;
+    private String updateBy;
 
     /** 更新时间 */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -52,20 +49,86 @@ public class BaseEntity implements Serializable
     /** 备注 */
     private String remark;
 
-    /** 删除标志（0代表存在 2代表删除） */
+    /** 删除标志（0代表存在 1代表删除） */
     @TableLogic
-    private String delFlag;
+    private Integer deleted;
 
     /** 请求参数 */
     @TableField(exist = false)
     private Map<String, Object> params;
 
-    public Map<String, Object> getParams()
-    {
-        if (params == null)
-        {
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getSearchValue() {
+        return searchValue;
+    }
+
+    public void setSearchValue(String searchValue) {
+        this.searchValue = searchValue;
+    }
+
+    public String getCreateBy() {
+        return createBy;
+    }
+
+    public void setCreateBy(String createBy) {
+        this.createBy = createBy;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getUpdateBy() {
+        return updateBy;
+    }
+
+    public void setUpdateBy(String updateBy) {
+        this.updateBy = updateBy;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    public Integer getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Integer deleted) {
+        this.deleted = deleted;
+    }
+
+    public Map<String, Object> getParams() {
+        if (params == null) {
             params = new HashMap<>();
         }
         return params;
+    }
+
+    public void setParams(Map<String, Object> params) {
+        this.params = params;
     }
 }
